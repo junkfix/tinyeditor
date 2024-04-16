@@ -1,53 +1,278 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
-	<title>spell</title>
-	<link rel="stylesheet" type="text/css" href="spell.css">
-	<style>
-		html, body {
-			font-family: "Segoe UI", Calibri, sans-serif;
-			font-size: 16px;
-		}
+<meta name="viewport" content "user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+<title>spell</title>
+<style>
+.spell,
+.spell-content {
+	box-sizing: border-box;
+	width: 100%;
+}
+.spell {
+	border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(10, 10, 10, 0.25);
+	overflow: auto;
+	resize: both;
+}
+.spell select{font-size:100%;padding:5px}
+.spell-content {
+	min-height: 300px;
+	resize: vertical;
+	outline: 0;
+	overflow-y: auto;
+	padding: 0.5em;
+}
+.spell-bar {
+	width: 100%;
+	background-color: #f6f6f6;
+	box-shadow: inset 0 -1px 2px rgba(10, 10, 10, 0.1);
+	border: none;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	position: sticky;
+	top: 0;
+}
+.spell-zone {
+	display: inline;
+}
+.spell-icon {
+	position: relative;
+	background: 0 0;
+	border: none;
+	cursor: pointer;
+	width: 48px;
+	outline: 0;
+	font-size: 24px;
+	line-height: 48px;
+	display: inline-block;
+}
+.spell-icon.selected {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+.spell-icon:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.spell-icon > :nth-child(2) {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 48px;
+	width: 48px;
+	opacity: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: 0 0;
+	cursor: pointer;
+	border: 0;
+	padding: 0;
+}
+[class^="icon-"]:before {
+	speak: none;
+	line-height: 1;
+	font-style: normal;
+}
+.icon-bold:before {
+	content: "B";
+	font-weight: 700;
+}
+.icon-italic:before {
+	content: "I";
+	font-style: italic;
+	font-family: Georgia;
+}
+.icon-underline:before {
+	content: "U";
+	text-decoration: underline;
+}
+.icon-strikethrough:before {
+	content: "S";
+	text-decoration: line-through;
+}
+.icon-justifycenter:before {
+	content: "Center";
+	font-size: 60%;
+}
+.icon-justifyleft:before {
+	content: "Left";
+	font-size: 60%;
+}
+.icon-code:before {
+	content: "\2277";
+}
+.icon-insertorderedlist:before {
+	content: "1.2.";
+	font-size: 60%;
+}
+.icon-insertunorderedlist:before {
+	content: "\2254";
+}
+.icon-inserthorizontalrule:before {
+	content: "\5f";
+}
+.icon-link:before {
+	content: "\1F517\FE0E";
+}
+.icon-forecolor:before {
+	content: "Color";
+	font-size: 60%;
+}
+.icon-hilitecolor:before {
+	content: "HiLi";
+	font-size: 60%;
+}
+.icon-removeformat:before {
+	content: "\2717";
+}
+.icon-image:before {
+	content: "\1F4F7\FE0E";
+}
+.icon-fontname:before {
+	content: "Font";
+	font-size: 70%;
+}
+.icon-undo:before {
+	content: "\27F2";
+}
+.icon-redo:before {
+	content: "\27F3";
+}
+.icon-fontsize:before {
+	content: "\1F5DA";
+	font-size: 70%;
+}
 
-		.content {
-			box-sizing: border-box;
-			margin: 1em auto;
-			max-width: 1200px;
-		}
-	</style>
+</style>
 </head>
 <body>
 <div class="content">
 	<h1>spell</h1>
-	<div id="container"></div>
-
-	<h2>Differences with original <a href="https://github.com/jaredreich/pell" target="_blank">pell</a></h2>
-	<ul>
-		<li>Even smaller than the original: <strong>912 bytes</strong> minified and gzipped</li>
-		<li>Moooore features: <ul>
-			<li>superscript / subscript</li>
-			<li>text align left/center/right/justify</li>
-			<li>indent / outdent</li>
-			<li>font family</li>
-			<li>font size</li>
-			<li>text foreground color and highlight color</li>
-			<li>more headings</li>
-			<li>clear formatting</li>
-			<li>unlink</li>
-			<li>insert video</li>
-			<li>copy / cut / paste</li>
-			<li>undo / redo</li>
-		</ul></li>
-		<li>Custom icon font</li>
-		<li>Less dev dependencies, bring your own transpiler</li>
-		<li>Actions are spread accross different action bars</li>
-		<li>No config, edit the <a href="spell.js" target="_blank">source</a> directly and comment the actions you don't want</li>
-	</ul>
 </div>
 
+<textarea id="ta" style="width:100%;height:400px">this &lt;b&gt;bold&lt;/b&gt;</textarea>
+<script>
 
-<script src="spell.min.js"></script>
-<script>document.getElementById('container').appendChild(spell())</script>
+
+
+
+function spell(ta,el) {
+	const show = (e)=>{e&&(e.style.display="block")}
+	const hide = (e)=>{e&&(e.style.display="none")};
+	const ucfirst = s=>(s+="")[0].toUpperCase()+s.slice(1);
+	const ucwords = s=>(s+="").split(" ").map((s=>ucfirst(s))).join(" ");
+	const _ce = (t) => document.createElement(t);
+
+
+
+	let rich;
+	let edt = 1;
+	let exec = (command, value=null,f) => {
+		rich.focus();
+		if(command=='code'){
+			if(edt){
+				edt = 0;
+				show(ta);
+				hide(rich);
+			}else{
+				edt = 1;
+				hide(ta);
+				rich.innerHTML = ta.value;
+				show(rich);
+			}
+			return;
+		}
+		document.execCommand("styleWithCSS", 0, true);
+		document.execCommand(command, false, value);
+		console.log(command, value);
+	};
+	let ensureHTTP = url => /^https?:\//.test(url) ? url : `http://${url}`
+	let $ = (tag, props, children=[], elm=_ce(tag)) =>
+		children.map(child => child && elm.appendChild(child)) && Object.assign(elm, props)
+
+	let colorPicker = _=> $('input', { type: 'color'})
+	let select = (op,fo) => $('select', {}, op.map(o => $('option', {value:o, textContent:o>0? 8+(o-1)*2 : ucwords(o), style: fo ? 'font-family:"'+o+'"' : '' })));
+
+	let buttons = {};
+	let queryState = _=> {
+		for(let cmd in buttons){
+			buttons[cmd].classList.toggle('selected', document.queryCommandState(cmd));
+		}
+	}
+
+	let actions = [
+		[
+			['bold'],
+			['italic'],
+			['underline'],
+			['strikeThrough'],
+			['justifyLeft'],
+			['justifyCenter']
+		],
+		[
+			['fontName', select(['Arial','Arial Black','cursive','fantasy','Georgia','Impact','monospace','sans-serif','serif','Times','Verdana'],1)],
+			['fontSize', select([...Array(7)].map((_,i)=>i+1))],
+			['forecolor', colorPicker()],
+			['hilitecolor', colorPicker()]
+		].map(([cmd, input]) => [cmd, 0, Object.assign(input, { onchange: _=> exec(cmd, input.value) })]),
+		[
+			['insertUnorderedList'],
+			['insertOrderedList'],
+			['insertHorizontalRule']
+		],
+		[
+			['createLink', 'link', ensureHTTP],
+			['insertImage','image', ensureHTTP]
+		].map(([cmd, type, t]) => [type, url => (url=prompt(`Enter the ${type} URL`)) && exec(cmd, t(url))]),
+		[
+			['undo'],
+			['redo'],
+			['removeFormat'],
+			['code']
+		]
+	];
+	
+	let spl = $('div', { className: 'spell' });
+	
+	ta = document.querySelector(ta);
+	spl.setAttribute('style', ta.getAttribute('style'));
+
+
+	spl.appendChild(
+		$('div', { className: 'spell-bar' }, actions.map(
+			bar => $('div', { className: 'spell-zone' }, bar.map(
+				([cmd, onclick = _=> exec(cmd), control]) => buttons[cmd] = $('button', {
+					className: 'spell-icon',
+					type: 'button',
+					title: ucwords(cmd.replace(/([^a-z])/g, ' $1')),
+					onclick
+				}, [$('i', { className: 'icon-'+cmd.toLowerCase() }), control])
+			))
+		))
+	);
+	
+	rich = $('div', {
+		className: 'spell-content',
+		contentEditable: true,
+		onkeydown: event => event.which !== 9,
+		onkeyup: queryState,
+		onmouseup: queryState
+	});
+	spl.appendChild(rich);
+			
+	ta.parentNode.insertBefore(spl, ta);
+	spl.appendChild(ta);
+	
+	hide(ta);
+	rich.innerHTML = ta.value;
+	'input keyup change paste'.split(' ').forEach(e => rich.addEventListener(e,()=>{ta.value = rich.innerHTML;}));
+
+	return rich;
+}
+
+
+spell('#ta');
+
+</script>
 </body>
 </html>
