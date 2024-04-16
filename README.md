@@ -1,12 +1,13 @@
-> spell is a fork of pell, the simplest and smallest WYSIWYG text editor for web, with no dependencies
+> spell is a fork of pell, the simplest and smallest WYSIWYG text editor for web, with no dependencies, minified js is 2044 bytes
 
-* added code toggle
+* attaches to an existing textarea,
+* added code toggle to manually insert own html or update
 * fixed font size bug
-* icon fonts removed
+* icon fonts removed, can be added back by updating css classes
 * textarea is updated on change
 * uses css styles for html editor
 * sticky toolbar
-* added fonts preview
+* added fonts preview in dropdown
   
 ## Installation and Usage
 
