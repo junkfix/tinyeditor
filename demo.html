@@ -41,10 +41,10 @@
 	background: 0 0;
 	border: none;
 	cursor: pointer;
-	width: 48px;
+	width: 40px;
 	outline: 0;
 	font-size: 24px;
-	line-height: 48px;
+	line-height: 40px;
 	display: inline-block;
 }
 .spell-icon.selected {
@@ -57,8 +57,8 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 48px;
-	width: 48px;
+	height: 40px;
+	width: 40px;
 	opacity: 0;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -90,16 +90,40 @@
 	content: "S";
 	text-decoration: line-through;
 }
-.icon-justifycenter:before {
-	content: "Center";
-	font-size: 60%;
+
+.spell-icon:has(.icon-justifyleft):after,
+.spell-icon:has(.icon-justifycenter):after{
+	content: "\a0";
 }
-.icon-justifyleft:before {
-	content: "Left";
-	font-size: 60%;
+.icon-justifyleft:before,
+.icon-justifycenter:before,
+.icon-justifyleft:after,
+.icon-justifycenter:after
+{
+	position: absolute;
+	content: "";
+	height: 8px;
+	width: 20px;
+	border: 2px solid #000;
+	border-left:none;
+	border-right:none;
+	top: 12px;
+	left: 10px;
 }
+
+.icon-justifycenter:after {
+	top: 17px;
+	left: 14px;
+	width: 12px;
+}
+.icon-justifyleft:after {
+	top: 17px;
+	width: 12px;
+}
+
 .icon-code:before {
-	content: "\2277";
+	content: "</>";
+	font-size: 70%;
 }
 .icon-insertorderedlist:before {
 	content: "1.2.";
@@ -115,12 +139,13 @@
 	content: "\1F517\FE0E";
 }
 .icon-forecolor:before {
-	content: "Color";
-	font-size: 60%;
+	content: "A";
+	box-shadow: inset 0 -4px 0 0 #f00;
 }
 .icon-hilitecolor:before {
-	content: "HiLi";
-	font-size: 60%;
+	content: "A";
+	background: #fff9023d;
+	padding: 0 5px;
 }
 .icon-removeformat:before {
 	content: "\2717";
@@ -142,7 +167,6 @@
 	content: "\1F5DA";
 	font-size: 70%;
 }
-
 </style>
 </head>
 <body>
