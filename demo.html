@@ -91,48 +91,35 @@
 	text-decoration: line-through;
 }
 
-.spell-icon:has(.icon-justifyleft):after,
-.spell-icon:has(.icon-justifycenter):after{
-	content: "\a0";
-}
-.icon-justifyleft:before,
-.icon-justifycenter:before,
-.icon-justifyleft:after,
-.icon-justifycenter:after
-{
-	position: absolute;
-	content: "";
-	height: 8px;
-	width: 20px;
-	border: 2px solid #000;
-	border-left:none;
-	border-right:none;
-	top: 12px;
-	left: 10px;
-	box-sizing: content-box;
-}
 
-.icon-justifycenter:after {
-	top: 17px;
-	left: 14px;
-	width: 12px;
-}
-.icon-justifyleft:after {
-	top: 17px;
-	width: 12px;
-}
 
 .icon-code:before {
 	content: "</>";
 	font-size: 70%;
 }
-.icon-insertorderedlist:before {
-	content: "1.2.";
-	font-size: 60%;
+.icon-justifycenter:before,
+.icon-justifyleft:before,
+.icon-removeformat:before,
+.icon-insertorderedlist:before,
+.icon-insertunorderedlist:before {
+	content: "\a0";
+	background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M10 14h11v-3H10zm0 6h11v-3H10zm0-15v3h11V5zm-5 6h2V5H5L4 7h1zm0 7c6-1 2-6-2-3l1 1c2-2 5 0-1 2v2h5v-2z"/></svg>') center no-repeat;
+	display: inline-block;
+	width: 100%;
 }
 .icon-insertunorderedlist:before {
-	content: "\2254";
+	background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M10 14h11v-3H10Zm0 6h11v-3H10Zm0-15v3h11V5ZM7 17H4v3h3Zm-3-5v2h3v-3H4Zm0-4h3V5H4v3Z"/></svg>');
 }
+.icon-removeformat:before {
+	background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="m6 5 3 3h2.3l-.8 1.7 1.9 1.8L14 8h6V5H6M3.3 5 2 6.3 9 13l-3 6h3l2-4 6 6 1.3-1.3z"/></svg>');
+}
+.icon-justifyleft:before {
+	background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M3 3h18v2H3V3m0 4h12v2H3V7m0 4h18v2H3v-2m0 4h12v2H3v-2m0 4h18v2H3v-2Z"/></svg>');
+}
+.icon-justifycenter:before {
+	background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M3 3h18v2H3V3m4 4h10v2H7V7m-4 4h18v2H3v-2m4 4h10v2H7v-2m-4 4h18v2H3v-2Z"/></svg>');
+}
+
 .icon-inserthorizontalrule:before {
 	content: "\5f";
 }
@@ -148,9 +135,7 @@
 	background: #fff9023d;
 	padding: 0 5px;
 }
-.icon-removeformat:before {
-	content: "\2717";
-}
+
 .icon-image:before {
 	content: "\1F4F7\FE0E";
 }
