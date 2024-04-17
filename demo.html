@@ -193,6 +193,7 @@ function spell(ta,el) {
 		}
 		document.execCommand("styleWithCSS", 0, true);
 		document.execCommand(command, false, value);
+		queryState();
 	};
 	let ensureHTTP = url => /^https?:\//.test(url) ? url : `http://${url}`
 	let $ = (tag, props, children=[], elm=_ce(tag)) =>
