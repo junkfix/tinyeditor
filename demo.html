@@ -195,7 +195,7 @@ function spell(ta,el) {
 		document.execCommand(command, false, value);
 		queryState();
 	};
-	let ensureHTTP = url => /^https?:\//.test(url) ? url : `http://${url}`
+	let ensureHTTP = url => /^https?:\//.test(url) ? url : 'http://'+url;
 	let $ = (tag, props, children=[], elm=_ce(tag)) =>
 		children.map(child => child && elm.appendChild(child)) && Object.assign(elm, props)
 
@@ -220,7 +220,7 @@ function spell(ta,el) {
 		],
 		[
 			['fontName', select(['Arial','Arial Black','cursive','fantasy','Georgia','Impact','monospace','sans-serif','serif','Times','Verdana'],1)],
-			['fontSize', select([...Array(7)].map((_,i)=>i+1))],
+			['fontSize', select([1,2,3,4,5,6,7])],
 			['forecolor', colorPicker()],
 			['hilitecolor', colorPicker()]
 		].map(([cmd, input]) => [cmd, 0, Object.assign(input, { onchange: _=> exec(cmd, input.value) })]),
@@ -232,7 +232,7 @@ function spell(ta,el) {
 		[
 			['createLink', 'link', ensureHTTP],
 			['insertImage','image', ensureHTTP]
-		].map(([cmd, type, t]) => [type, url => (url=prompt(`Enter the ${type} URL`)) && exec(cmd, t(url))]),
+		].map(([cmd, type]) => [type, url => (url=prompt('Enter the '+type+' URL')) && exec(cmd, t(url))]),
 		[
 			['undo'],
 			['redo'],
