@@ -177,6 +177,7 @@ function spell(ta) {
 
 	let rich;
 	let edt = null;
+	const st = 'style';
 	let exec = (command, value=null,f) => {
 		rich.focus();
 		if(command=='code'){
@@ -248,7 +249,7 @@ function spell(ta) {
 	
 	ta = document.querySelector(ta);
 	if(!ta){return;}
-	_att(spl,'style', _att(ta,'style'));
+	_att(spl,st, _att(ta,st));
 
 	spl.appendChild(
 		$('div', { className: 'spell-bar' }, actions.map(
@@ -294,15 +295,16 @@ function spell(ta) {
 			let c = el.children[i];
 			if(c.tagName == 'FONT'){
 				const s = _ce('span');
+				_att(s,st,_att(c,st));
 				for (const a of c.attributes) {
 					let n = a.name;
 					let v = a.value;
-					if(n == 'face') { n = 'fontFamily'; }
-					if(n == 'size') { n = 'fontSize'; v = fontSz[v]; }
-					if(n == 'style'){
-						_att(s,n,a.value);
-					}else{
+					if(['face','size','color'].includes(n)){
+						if(n == 'face') { n = 'fontFamily'; }
+						if(n == 'size') { n = 'fontSize'; v = fontSz[v]; }
 						s.style[n] = v;
+					}else{
+						if(n!=st){_att(s,n,a.value);}
 					}
 				}
 				Array.from(c.childNodes).forEach(d => s.appendChild(d));
@@ -314,7 +316,7 @@ function spell(ta) {
 					c.removeAttribute(a.name);
 					continue;
 				}
-				if(a.name == 'style'){
+				if(a.name == st){
 					let s=0;
 					for (let j = c.style.length - 1; j >= 0; j--) {
 						const p = c.style[j]; s++;
@@ -323,7 +325,7 @@ function spell(ta) {
 							s--;
 						}
 					}
-					if(!s){c.removeAttribute('style');}
+					if(!s){c.removeAttribute(st);}
 				}
 			}
 			if (!allowedTags.includes(c.tagName) || (c.tagName === "IMG" && _att(c,'src').startsWith('data'))) {
