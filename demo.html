@@ -285,7 +285,7 @@ function spell(ta) {
 	const skipTags = 'HEAD,LINK,META,SCRIPT,STYLE'.split(',');
 	const allowedAtt = 'align,alt,colspan,download,height,href,open,reversed,rowspan,sizes,span,src,srcset,start,style,valign,width'.split(',');
 	const allowedCss = /^(min|max|font|text|list|background|color|width|height)\b/;
-    const fontSz = ',xx-small,x-small,small,medium,large,x-large,xx-large'.split(',');
+	const fontSz = ',xx-small,x-small,small,medium,large,x-large,xx-large'.split(',');
 	const untag = (c) => {c.replaceWith(...c.childNodes);};
 	const clean = (el) => {
 	
