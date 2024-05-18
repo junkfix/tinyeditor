@@ -1,15 +1,18 @@
-> spell is a fork of pell, the simplest and smallest WYSIWYG text editor for web, with no dependencies, minified js is 2044 bytes
+### The simplest and smallest WYSIWYG text editor for web
+No dependencies, minified gzipped js is 1897 bytes
 
-* attaches to an existing textarea,
-* added code toggle to manually insert own html or update
-* fixed font size bug
-* icon fonts removed, can be added back by updating css classes
-* textarea is updated on change
-* uses css styles for html editor
-* sticky toolbar
-* added fonts preview in dropdown
+* Attaches to an existing textarea,
+* Added code toggle to manually insert own html or update
+* Fixed font size bug
+* Icon fonts dependency removed
+* `textarea` is updated on change
+* Uses css styles for html editor
+* Sticky toolbar
+* Added fonts preview in dropdown
+* Added cleanup function to auto remove non matching tags and css
+* Converts `font` to `span` tags
   
-## Installation and Usage
+### Installation and Usage
 
 ```html
 <textarea id="mytext" style="width:100%;height:400px">this &lt;b&gt;bold&lt;/b&gt;</textarea>
@@ -18,4 +21,4 @@
 spell('#mytext');
 ```
 
-see demo.html
+See demo.html
