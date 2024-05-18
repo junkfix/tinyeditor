@@ -1,5 +1,5 @@
 ### The simplest and smallest WYSIWYG text editor for web
-No dependencies, minified gzipped js is 1897 bytes
+No dependencies, minified gzipped js is 1926 bytes
 
 * Attaches to an existing textarea,
 * Added code toggle to manually insert own html or update
