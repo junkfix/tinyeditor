@@ -282,7 +282,7 @@ function spell(ta) {
 	'input keyup change paste'.split(' ').forEach(e => rich.addEventListener(e,()=>{ta.value = rich.innerHTML;}));
 
 	//cleanup
-	const allowedTags = 'A,B,BLOCKQUOTE,BR,DEL,DIV,FONT,H1,H2,H3,HR,I,IMG,INS,LI,OL,P,S,SPAN,STRONG,SUB,SUP,TABLE,TBODY,TD,TH,THEAD,TR,U,UL'.split(',');
+	const allowedTags = 'A,B,BLOCKQUOTE,BR,DEL,DIV,EM,FONT,H1,H2,H3,HR,I,IMG,INS,LI,OL,P,S,SPAN,STRONG,SUB,SUP,TABLE,TBODY,TD,TH,THEAD,TR,U,UL'.split(',');
 	const skipTags = 'HEAD,LINK,META,SCRIPT,STYLE'.split(',');
 	const allowedAtt = 'align,alt,colspan,download,height,href,open,reversed,rowspan,sizes,span,src,srcset,start,style,valign,width'.split(',');
 	const allowedCss = /^(min|max|font|text|list|background|color|width|height)\b/;
