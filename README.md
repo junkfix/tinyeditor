@@ -22,3 +22,5 @@ spell('#mytext');
 ```
 
 See demo.html
+
+![tinyeditor](https://github.com/junkfix/tinyeditor/raw/master/screenshot.png)
